@@ -50,7 +50,7 @@ class Vector(object):
 
     
 
-#Lesson 1 -- 
+#Lesson 1 
 my_vector = Vector([1,2,3])
 print (my_vector)
 my_vector_2 = Vector([1,2,3])
