@@ -1,3 +1,5 @@
+import math
+
 class Vector(object):
     def __init__(self, coordinates):
         try:
@@ -31,6 +33,21 @@ class Vector(object):
         new_coordinates = [x*c for x in self.coordinates]
         return Vector(new_coordinates)
 
+    # The Square Root of the sum of all the coordinates in the vector squared
+    def get_magnitude(self):
+        coordinatesSquared =[x**2 for x in self.coordinates]
+        return math.sqrt(sum(coordinatesSquared))
+
+    #Get Normalization of my_vector
+    # Scalar multiplication
+    # (1 / magnitude of v ) * (v)
+    def get_normalization(self):
+        try:
+            return(self.times_scalar(1/self.get_magnitude()))
+        except ZeroDivisionError:
+            raise Exception('Cannot normalize Zero Vector')
+        
+
     
 
 #Lesson 1 -- 
@@ -58,6 +75,24 @@ print("X - Y = " + str(x.minus(y)))
 c = 7.41
 z = Vector([1.671, -1.012, -0.318])
 print("Scalar c x Vector z = " + str(z.times_scalar(c)))
+
+#Lesson 3
+
+#3.1 Magniture
+v311 = Vector([-0.221, 7.437])
+print("v3.1 Problem 1 Magnitude: " + str(v311.get_magnitude()))
+
+v312 = Vector([8.813, -1.331, -6.247])
+print("v3.1 Problem 2 Magnitude: " + str(v312.get_magnitude()))
+
+#3.2 Normalization
+v321 = Vector([5.581, -2.136])
+print ("Normalizaiton of v321: " + str(v321.get_normalization()))
+
+v322 = Vector([1.996, 3.108, -4.554])
+print ("Normalizaiton of v322: " + str(v322.get_normalization()))
+
+
 
 
 
