@@ -61,7 +61,7 @@ print (my_vector_2 == my_vector_3)
 
 #Lesson 2
 
-#2.1 Addition
+#2.1 Addition --
 v = Vector([8.218, -9.341])
 w = Vector([-1.129, 2.111]) 
 print("V + W =" + str(v.plus(w)))
