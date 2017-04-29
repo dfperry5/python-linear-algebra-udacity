@@ -5,6 +5,8 @@ getcontext().prec = 30
 
 class Vector(object):
     CANNOT_NORMALIZE_ZERO_VECTOR_MSG = 'Cannot normalize Zero Vector'
+    NO_UNIQUE_PARALLEL_COMPONENT_MSG = 'No Unique Parallel Component'
+    NO_UNIQUE_ORTHOGONAL_COMPONENT_MSG = 'No Unique Orthogonal Component'
     PI = 3.14
     def __init__(self, coordinates):
         try:
@@ -20,6 +22,8 @@ class Vector(object):
 
     #Allows Pythons built in print function to work on class
     def __str__(self):
+        # coordinates_as_floats = map(float, self.coordinates)
+        # return ' Vector: {}'.format(coordinates_as_floats)
         return ' Vector: {}'.format(self.coordinates)
 
     # Allows Python equality checks.
@@ -81,4 +85,49 @@ class Vector(object):
             self.get_angle_btwn(v) == 0 or
              round(self.get_angle_btwn(v),2) == round(math.pi,2)
              )
+
+    def component_parallel_to(self, basis):
+        try:
+            normalization = basis.get_normalization()
+            scalar = self.get_dot_product(normalization)
+            return normalization.times_scalar(scalar)
+
+        except Exception as e:
+            if str(e) == self.CANNOT_NORMALIZE_ZERO_VECTOR_MSG:
+                raise Exception(self.NO_UNIQUE_PARALLEL_COMPONENT_MSG)
+            else:
+                raise e
+
+    def component_orthogonal_to(self, basis):
+        try:
+            projection = self.component_parallel_to(basis)
+            return self.minus(projection)
+        
+        except Exception as e:
+            if str(e) == self.NO_UNIQUE_PARALLEL_COMPONENT_MSG:
+                raise Exception(self.NO_UNIQUE_ORTHOGONAL_COMPONENT_MSG)
+            else:
+                raise e
+    def area_of_parallelogram_with(self, v):
+        return self.cross_product(v).get_magnitude()
+
+    def area_of_triangle_with(self, v):
+        return self.area_of_parallelogram_with(v) / 2 
+
+    def cross_product(self, v):
+        try:
+            x_1, y_1, z_1 = self.coordinates
+            x_2, y_2, z_2 = v.coordinates
+            new_coordinates = [
+                (y_1*z_2 - y_2*z_1),
+                -(x_1*z_2 - x_2*z_1),
+                (x_1*y_2 - x_2*y_1)
+            ]
+            return Vector(new_coordinates)
+        except Exception as e:
+            raise e
+
+
+
+
 
