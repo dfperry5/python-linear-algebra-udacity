@@ -66,7 +66,7 @@ class Vector(object):
     def get_angle_btwn(self, v, inDegrees=False):
         try:
             if inDegrees:
-                return math.acos( (self.get_dot_product(v)) / (self.get_magnitude() * v.get_magnitude()))
+                return (180/math.pi) * math.acos( (self.get_dot_product(v)) / (self.get_magnitude() * v.get_magnitude()))
             else:
                 return math.acos( (self.get_dot_product(v)) / (self.get_magnitude() * v.get_magnitude()))
         except Exception as e:

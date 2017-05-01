@@ -81,6 +81,22 @@ class Vector {
     getNormalization(){
         return this.times_scalar(1/this.getMagnitude());
     }
+    
+    dotProductWith(v1){
+        let sum = 0;
+        let result = this.coordinates.map( (num, idx) => {
+            sum += num * v1.coordinates[idx];
+        })
+        return sum;
+    }
+
+    angleWith(v1, inDegrees=false){
+        if (inDegrees) {
+            return  (180 / Math.PI ) * (Math.acos( this.dotProductWith(v1) / (this.getMagnitude() * v1.getMagnitude())) );
+        } else{
+            return Math.acos( this.dotProductWith(v1) / (this.getMagnitude() * v1.getMagnitude()) );
+        }
+    }
 };
 
 module.exports = Vector;
