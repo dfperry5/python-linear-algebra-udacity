@@ -69,6 +69,18 @@ class Vector {
         })
         return new Vector(result);
     }
+
+    getMagnitude(){
+        let result = 0;
+        this.coordinates.forEach( (num, idx) => {
+            result += Math.pow(num, 2);
+        })
+        return Math.sqrt(result);
+    }
+
+    getNormalization(){
+        return this.times_scalar(1/this.getMagnitude());
+    }
 };
 
 module.exports = Vector;
